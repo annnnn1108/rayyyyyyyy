@@ -85,7 +85,7 @@ function drawSkeleton() {
 
     // Draw the GIF at the right wrist if the score is higher than 0.1
     if (partB.score > 0.1) {
-      image(carImg,(partC.x + frameCount) % width, partD.y, 50, 50);
+      image(carImg,(partD.x + frameCount) % width, partD.y, 50, 50);
     }
     }
         }
