@@ -5,12 +5,12 @@ https://www.tensorflow.org/hub/tutorials/movenet
 
 */
 
-let video, detector, dinosaurImg;
+let video, bodypose, pose, keypoint, detector;
 let poses = [];
 
-function preload() {
-  carImg = loadImage("car.gif");
-}
+ function preload(){
+  carImg = loadImage("car.gif")
+ }
 
 async function init() {
   const detectorConfig = {
@@ -31,7 +31,7 @@ async function getPoses() {
   if (detector) {
     poses = await detector.estimatePoses(video.elt, {
       maxPoses: 2,
-      // flipHorizontal: true,
+      //flipHorizontal: true,
     });
   }
   requestAnimationFrame(getPoses);
@@ -52,45 +52,46 @@ function draw() {
   image(video, 0, 0);
   drawSkeleton();
   // flip horizontal
-  let cam = get();
+  cam = get();
   translate(cam.width, 0);
-  scale(1, -1);  //反向
+  scale(-1, 1);
   image(cam, 0, 0);
-
 }
 
-function drawSkeleton () {
+function drawSkeleton() {
   // Draw all the tracked landmark points
-  for (let i = 0; i < poses. length; i++) {
-  pose = poses [i];
-  partA = pose. keypoints [3];
-  partB = pose. keypoints [4];
-  partC = pose. keypoints [9];
-  partD = pose. keypoints [10];
- 
-  //line(partA.x, partA.y, partB.x, partB.y);
-  if (partA. score > 0.1) {
-  image(carImg,partA.x-frameCount%width, partA.y-25,50,50)
-  }
-  if (partB.score > 0.1) {
-  image (carImg,partB.x-frameCount%width, partB. y-25,50,50)
-  partA = pose.keypoints [2];
-  if (partA.score > 0.1) {
-    push();
-    textSize(40);
-    text("412730045,林昱睿", partA.x-50,partA.y-100);
-    pop();
-  }
-  if (partC.score > 0.1) {
-  image(carImg,(partC.x + frameCount) % width, partC.y, 50, 50);
-  }
-  // Draw the GIF at the right wrist if the score is hi
-  if (partD. score > 0.1) {
-  image (carImg,(partD.x + frameCount) % width, partD.y, 50, 50);
-}
-  }
-}
-}
+  for (let i = 0; i < poses.length; i++) {
+      pose = poses[i];
+      partA = pose.keypoints[3];
+      partB = pose.keypoints[4];
+      partC = pose.keypoints[9];
+      partD = pose.keypoints[10];
+      //line(partA.x, partA.y, partB.x, partB.y);
+    if (partA.score > 0.1) {
+      image(carImg,partA.x-frameCount%width,partA.y-25,50,50)
+     // image(carImg,partA.x+100,partA.y-25,50,50)
+      }
+    if (partB.score > 0.1) {
+     image(carImg,partB.x-frameCount%width,partB.y-25,50,50)
+    if (partB.score > 0.1) {
+     push()
+      textSize(40)
+      scale(-1,1)
+      text("412730045林昱睿",partA.x-width,partA.y-100)
+     pop()
+        if (partA.score > 0.1) {
+      image(carImg,(partC.x + frameCount) % width, partC.y, 50, 50);
+    }
+
+    // Draw the GIF at the right wrist if the score is higher than 0.1
+    if (partB.score > 0.1) {
+      image(carImg,(partC.x + frameCount) % width, partD.y, 50, 50);
+    }
+    }
+        }
+    }
+    }
+
 /* Points (view on left of screen = left part - when mirrored)
   0 nose
   1 left eye
@@ -105,7 +106,7 @@ function drawSkeleton () {
   10 right wrist
   11 left hip
   12 right hip
-  13 left knee
+  13 left kneee
   14 right knee
   15 left foot
   16 right foot
