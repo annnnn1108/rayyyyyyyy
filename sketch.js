@@ -67,16 +67,14 @@ function drawSkeleton () {
   partB = pose. keypoints [4];
   partC = pose. keypoints [9];
   partD = pose. keypoints [10];
-  let speed = 2;
-    let posX = (frameCount * speed) % width;
-    let negPosX = width - ((frameCount * speed) % width);
+ 
   //line(partA.x, partA.y, partB.x, partB.y);
   if (partA. score > 0.1) {
-  image(carImg,posX, partA. y-25,50,50)
+  image(carImg,partA.x-frameCount%width, partA.y-25,50,50)
   }
   if (partB.score > 0.1) {
-  image (carImg, posX, partB. y-25,50,50)
-  partA = pose. keypoints [2];
+  image (carImg,partB.x-frameCount%width, partB. y-25,50,50)
+  partA = pose.keypoints [2];
   if (partA.score > 0.1) {
     push();
     textSize(40);
@@ -84,11 +82,11 @@ function drawSkeleton () {
     pop();
   }
   if (partC.score > 0.1) {
-  image(cardinosaurImg, posX, partC.y, 50, 50);
+  image(carImg,(partC.x + frameCount) % width, partC.y, 50, 50);
   }
   // Draw the GIF at the right wrist if the score is hi
   if (partD. score > 0.1) {
-  image (carImg, posX, partD.y, 50, 50);
+  image (carImg,(partD.x + frameCount) % width, partD.y, 50, 50);
 }
   }
 }
